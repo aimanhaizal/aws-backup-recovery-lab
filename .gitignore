@@ -11,4 +11,6 @@ cdk.out/
 # Generated demo data and local backups
 demo-data/
 local-backups/
+restored-data/s3-recovery-test/
+s3-restored-data/
 restored-data/

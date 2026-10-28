@@ -110,12 +110,16 @@ def restore_backup(backup_dir: Path, destination: Path) -> int:
 
         validated.append((relative_name, expected_hash, relative))
 
+
+    # Verify every source file before writing any restored files.
     for relative_name, expected_hash, relative in validated:
+        if sha256_file(backup_dir / relative) != expected_hash:
+            raise ValueError(f"Checksum verification failed: {relative_name}")
+
+    # Only restore after the entire backup passes verification.
+    for _, _, relative in validated:
         target = destination / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(backup_dir / relative, target)
-
-        if sha256_file(target) != expected_hash:
-            raise ValueError(f"Checksum verification failed: {relative_name}")
 
     return len(validated)

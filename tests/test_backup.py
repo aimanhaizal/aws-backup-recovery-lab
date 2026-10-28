@@ -59,3 +59,21 @@ def test_restore_rejects_unsafe_manifest_path(tmp_path: Path):
 
     with pytest.raises(ValueError, match="Unsafe path"):
         restore_backup(backup_dir, tmp_path / "restored")
+
+
+def test_recovery_rejects_corrupted_downloaded_backup(tmp_path: Path):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "records.csv").write_text("original data\n")
+
+    backup_dir = create_backup(source, tmp_path / "backups")
+
+    # Simulate corruption after downloading the backup.
+    (backup_dir / "records.csv").write_text("tampered data\n")
+
+    restored = tmp_path / "restored"
+
+    with pytest.raises(ValueError, match="Checksum verification failed"):
+        restore_backup(backup_dir, restored)
+
+    assert not (restored / "records.csv").exists()
