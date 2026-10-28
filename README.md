@@ -246,6 +246,9 @@ The S3 unit tests use mocks, so they do not need to upload files to AWS. The end
 
 **Cost note:** This project uses a small S3 footprint, but AWS usage is not guaranteed to be free. Storage, requests, retained object versions, and other applicable charges may apply. Check current pricing and your account's billing information, and remove unneeded objects when finished. Because the bucket is retained by CloudFormation, stack deletion alone will not remove its contents.
 
+For deployment cost considerations and safe resource cleanup, see
+[Cost & Cleanup Guide](docs/COST_AND_CLEANUP.md).
+
 ## Current Scope & Future Improvements
 
 This implementation focuses on a small, manually initiated backup and recovery workflow.
@@ -265,6 +268,8 @@ These are future enhancements, not capabilities claimed by the current implement
 This project demonstrates practical experience with AWS storage, secure resource configuration, Infrastructure as Code, Python automation, cloud SDK integration, and integrity-verified recovery.
 
 It complements cloud operations work involving Linux, EC2, monitoring, and operational troubleshooting by demonstrating a separate **backup and recovery** capability.
+
+
 
 ## License
 
