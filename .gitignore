@@ -7,3 +7,8 @@ __pycache__/
 !.env.example
 .aws/
 cdk.out/
+
+# Generated demo data and local backups
+demo-data/
+local-backups/
+restored-data/
